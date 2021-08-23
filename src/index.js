@@ -37,10 +37,31 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+
+
 function decode(expr) {
-    // write your solution here
+    let arr = expr.split("");
+    let result = [];
+
+    while (arr.length) {
+        let letterEncoded = arr.splice(10 * -1);
+        let Morse = "";
+
+        if (letterEncoded.join("") === "**********") {
+            result.push(" ");
+            continue;
+        }
+
+        for (i = 0; i < letterEncoded.length; i += 2) {
+            let signCode = letterEncoded.slice(i, i + 2).join("");
+            Morse += signCode === '10' ? "." : signCode === '11' ? "-" : "";
+        }
+        result.push(MORSE_TABLE[Morse]);
+    }
+    return result.reverse().join("");
 }
+
 
 module.exports = {
     decode
-}
+};
